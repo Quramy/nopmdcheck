@@ -1,0 +1,51 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+	<l:layout>
+		<st:include it="${it.owner}" page="sidepanel.jelly" />
+		<l:main-panel>
+			<div class="result" id="title">
+				<h1>${it.displayName}</h1>
+			</div>
+
+			<h2>detail:</h2>
+			<j:forEach items="${it.resultList}" var="result" indexVar="idx">
+				<div class="nopmd-result" title="${result.name}">
+					<h3>${result.name}</h3>
+					<table>
+						<thead>
+							<th>@</th>
+							<th>line</th>
+						</thead>
+						<tbody>
+							<j:forEach items="${result.lineHolders}" var="holder"
+								escapeText="true">
+								<tr>
+									<td>${holder.number}</td>
+									<td>
+										<j:out value="${holder.wholeLine}" />
+									</td>
+								</tr>
+							</j:forEach>
+						</tbody>
+					</table>
+				</div>
+			</j:forEach>
+
+
+			<!-- javascript -->
+			<script type="text/javascript" src="${rootURL}/plugin/nopmdcheck/js/jquery.js"></script>
+			<script type="text/javascript">
+				var $$ = jQuery.noConflict();
+			</script>
+			<script type="text/javascript" src="${rootURL}/plugin/nopmdcheck/js/underscore.js"></script>
+			<script type="text/javascript">
+			<![CDATA[
+				var nopmdcheck = {};
+				nopmdcheck.RESULTS = ${it.resultAsJson};
+				]]>
+			</script>
+
+		</l:main-panel>
+	</l:layout>
+</j:jelly>
