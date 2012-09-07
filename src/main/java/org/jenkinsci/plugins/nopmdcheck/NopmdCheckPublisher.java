@@ -3,7 +3,6 @@ package org.jenkinsci.plugins.nopmdcheck;
 import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
-import hudson.XmlFile;
 import hudson.model.BuildListener;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
@@ -11,7 +10,6 @@ import hudson.model.Descriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,13 +80,13 @@ public class NopmdCheckPublisher extends Publisher {
 			}
 			
 			// output check results.
-			//TODO make result file abstract.
-			XmlFile xmlFile = new XmlFile(new File(build.getRootDir(), "nopmd_check_result.xml"));
-			xmlFile.write(resultList);
-			logger.info("output to ", xmlFile.getFile().getAbsolutePath());
+//			XmlFile xmlFile = new XmlFile(new File(build.getRootDir(), "nopmd_check_result.xml"));
+//			xmlFile.write(resultList);
+//			logger.info("output to ", xmlFile.getFile().getAbsolutePath());
 			
 			//add Action to build.
 			NopmdCheckResultAction action = new NopmdCheckResultAction(build);
+			action.setResultList(resultList);
 			build.addAction(action);
 			
 			

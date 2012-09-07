@@ -1,10 +1,8 @@
 package org.jenkinsci.plugins.nopmdcheck;
 
-import hudson.XmlFile;
 import hudson.model.Action;
 import hudson.model.AbstractBuild;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,17 +16,20 @@ public class NopmdCheckResultAction implements Action {
 	
 	private List<CheckResult> resultList;
 
-	@SuppressWarnings("unchecked")
 	public NopmdCheckResultAction(AbstractBuild<?, ?> owner) throws IOException {
 		this.owner = owner;
 		
-		XmlFile xmlFile = new XmlFile(new File(owner.getRootDir(), "nopmd_check_result.xml"));
-		List<CheckResult> resultList = (List<CheckResult>) xmlFile.read();
-		this.resultList = resultList;
+//		XmlFile xmlFile = new XmlFile(new File(owner.getRootDir(), "nopmd_check_result.xml"));
+//		List<CheckResult> resultList = (List<CheckResult>) xmlFile.read();
+//		this.resultList = resultList;
 	}
 
 	public AbstractBuild<?, ?> getOwner() {
 		return this.owner;
+	}
+	
+	public void setResultList(List<CheckResult> resultList){
+		this.resultList = resultList;
 	}
 	
 	public List<CheckResult> getResultList(){
