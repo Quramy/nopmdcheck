@@ -8,6 +8,7 @@ import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import hudson.tasks.BuildStepMonitor;
+import hudson.tasks.Builder;
 import hudson.tasks.Publisher;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import org.jenkinsci.plugins.nopmdcheck.util.Logger;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.StaplerRequest;
 
-public class NopmdCheckPublisher extends Publisher {
+public class NopmdCheckPublisher extends Builder {
 
 	private List<FilesetDescriptor> filesetList;
 
@@ -103,7 +104,7 @@ public class NopmdCheckPublisher extends Publisher {
 	}
 
 	@Extension
-	public static final class DescriptorImpl extends Descriptor<Publisher> {
+	public static final class DescriptorImpl extends Descriptor<Builder> {
 
 		public boolean isApplicable(Class<? extends AbstractProject<?, ?>> aClass) {
 			return true;
