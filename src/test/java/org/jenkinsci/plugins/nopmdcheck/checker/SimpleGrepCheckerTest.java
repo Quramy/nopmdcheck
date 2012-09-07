@@ -12,7 +12,7 @@ public class SimpleGrepCheckerTest {
 
 	@Before
 	public void setup() {
-		Logger.init(System.out);
+		Logger.init(System.out, Logger.Level.DEBUG);
 		suffix = new File("pom.xml").getAbsolutePath().replace("pom.xml", "");
 
 	}
