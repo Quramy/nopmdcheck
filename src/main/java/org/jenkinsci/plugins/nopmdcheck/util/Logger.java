@@ -8,7 +8,7 @@ public class Logger {
 
 	private PrintStream ps;
 
-	public static Level logLevel = Level.INFO;
+	private static Level logLevel = Level.INFO;
 
 	private Logger(PrintStream ps) {
 		this.ps = ps;
@@ -29,6 +29,12 @@ public class Logger {
 	}
 
 	public static void init(PrintStream ps) {
+		init(ps, Level.INFO);
+	}
+
+	public static void init(PrintStream ps, Level lv) {
+
+		logLevel = lv;
 		if (ps != null) {
 			instance = new Logger(ps);
 		} else {
