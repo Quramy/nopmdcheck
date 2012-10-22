@@ -31,25 +31,38 @@ public abstract class Checker implements FileCallable<CheckResult> {
 		init();
 	}
 
-	public CheckResult invoke(File file, VirtualChannel channel) throws IOException, InterruptedException {
-		
-		//set a hash code to results
+	public CheckResult invoke(File file, VirtualChannel channel)
+			throws IOException, InterruptedException {
+
+		// set a hash code to results
 		CheckResult result = check(file);
-		if (result.getLineHolders() != null && result.getLineHolders().size() > 0) {
-			for(LineHolder holder:result.getLineHolders()){
-				holder.setHashcode(HashGenerator.getSHA(result.getName() + holder.getWholeLine()));
+		if (result.getLineHolders() != null
+				&& result.getLineHolders().size() > 0) {
+			for (LineHolder holder : result.getLineHolders()) {
+				holder.setHashcode(HashGenerator.getSHA(result.getName()
+						+ holder.getWholeLine()));
 			}
 		}
-		
+
 		return result;
 	}
 
 	protected CheckResult canonicalName(File src) {
 		CheckResult result = new CheckResult();
 		String absolutePath = src.getAbsolutePath();
+		
+		String sp = System.getProperty("file.separator");
 
 		if (suffix != null && !suffix.equals("")) {
-			result.setName(absolutePath.replaceFirst(suffix, ""));
+			// result.setName(absolutePath.replaceFirst(suffix, ""));
+			if (absolutePath.substring(0, suffix.length()).equals(suffix)) {
+				String rPath = absolutePath.substring(suffix.length());
+				if(sp.equals("\\")){
+					result.setName(rPath.replaceAll("\\\\", "/"));
+				}else{
+					result.setName(rPath);
+				}
+			}
 		} else {
 			result.setName(absolutePath);
 		}
