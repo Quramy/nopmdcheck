@@ -46,15 +46,18 @@ public class NopmdCheckResultAction implements Action {
 	}
 
 	public String getIconFileName() {
-		return "document.gif";
+		return null;
+//		return "document.gif";
 	}
 
 	public String getDisplayName() {
-		return "Nopmd check result";
+		return null;
+//		return "Nopmd check result";
 	}
 
 	public String getUrlName() {
-		return "nopmdCheckResult";
+		return null;
+//		return "nopmdCheckResult";
 	}
 
 }
